@@ -1,2 +1,1 @@
-worker: python run.py
-web: api
+web: python run.py
