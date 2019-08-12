@@ -13,7 +13,8 @@ Após alterar a uri de conexão, execute o script de migração, para criar e po
 Dessa forma o banco será inicializado.
 
 ---
-##Rodando com e sem Docker
+
+## Rodando com e sem Docker
 
 #### Rodando sem docker
 Caso queira executar o projeto sem o docker, basta apenas realizar os passos abaixo:
