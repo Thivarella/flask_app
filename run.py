@@ -1,21 +1,16 @@
 import os
 from flask import Flask
+from app import api_bp
+from models.Model import db
 
+app = Flask(__name__)
+app.config.from_object("config")
 
-def create_app(config_filename):
-    app = Flask(__name__)
-    app.config.from_object(config_filename)
+app.register_blueprint(api_bp)
 
-    from app import api_bp
-    app.register_blueprint(api_bp)
-
-    from models.Model import db
-    db.init_app(app)
-
-    return app
+db.init_app(app)
 
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
-    app = create_app("config")
     app.run(port=port)
