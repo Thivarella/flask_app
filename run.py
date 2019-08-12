@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 
@@ -15,5 +16,6 @@ def create_app(config_filename):
 
 
 if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
     app = create_app("config")
-    app.run()
+    app.run(port=port)
