@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from app import api_bp
-from models.Model import db
+from models import db
 
 app = Flask(__name__)
 app.config.from_object("config")

@@ -37,12 +37,9 @@ class PedidoResource(Resource):
         json_data = request.get_json(force=True)
         if not json_data:
             return {'message': 'No input data provided'}, 400
+        # Validate and deserialize input
         json_data['cliente'] = cliente_schema.dump(
             Cliente.query.get(json_data['cliente']['id'])).data
-
-        if not json_data['itens_pedido']:
-            return {'status': 'erro', 'message': 'Lista de itens vazia'}, 400
-
         for item in json_data['itens_pedido']:
             produto = produto_schema.dump(Produto.query.get(item['id'])).data
             if not validate_multiplo(produto['multiplo'], item['quantidade']):
@@ -61,9 +58,9 @@ class PedidoResource(Resource):
         for received_item in json_data['itens_pedido']:
             item = ItensPedido(received_item['produto']['id'], received_item['preco_unitario'],
                                received_item['quantidade'], received_item['rentabilidade'], pedido.id)
-
             db.session.add(item)
             db.session.commit()
+            pedido.itens_pedido.append(item)
 
         result = pedido_schema.dump(pedido).data
 
